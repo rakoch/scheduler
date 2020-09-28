@@ -15,8 +15,8 @@ public class CalendarConstraintService {
 	@Autowired
 	CalendarConstraintRepository repository;
 
-	public void saveOrUpdates(CalendarConstraint constraint) {
-		repository.save(constraint);
+	public CalendarConstraint saveOrUpdates(CalendarConstraint constraint) {
+		return repository.save(constraint);
 	}
 
 	public void delete(long id) {
@@ -27,9 +27,8 @@ public class CalendarConstraintService {
 		return (List<CalendarConstraint>) repository.findAll();
 	}
 
-	public CalendarConstraint getCalendarConstraintById(long id) {
-		Optional<CalendarConstraint> optionalCalendarConstraint = repository.findById(id);
-		return optionalCalendarConstraint.orElseThrow(() -> new CalendarConstraintNotFoundException("Couldn't find a CalendarConstraint with id: " + id));
+	public Optional<CalendarConstraint> getCalendarConstraintById(long id) {
+		 return repository.findById(id);
 	}
 
 }

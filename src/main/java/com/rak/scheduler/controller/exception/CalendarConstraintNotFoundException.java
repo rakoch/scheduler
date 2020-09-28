@@ -1,6 +1,15 @@
-package com.rak.scheduler.service;
+package com.rak.scheduler.controller.exception;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.NOT_FOUND)  
 public class CalendarConstraintNotFoundException extends RuntimeException {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6888159064498965806L;
 
 	public CalendarConstraintNotFoundException() {
 		super();

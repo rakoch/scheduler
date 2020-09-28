@@ -1,17 +1,37 @@
 package com.rak.scheduler.model;
 
-public enum UserRole {
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-	ADMIN(0), PROVIDER(1), CLIENT(2);
+@Entity
+@Table(name = "USER_ROLE")
+public class UserRole extends AbstractAuditedEntity {
+
+	//ADMIN(0), PROVIDER(1), CLIENT(2);
 	
-	private long id;
+	private Long id;
+	private String roleName;
+	
 
-	private UserRole(long id) {
+	public UserRole(Long id, String roleName) {
+		super();
+		this.id = id;
+		this.roleName = roleName;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public long getId() {
-		return id;
+	public String getRoleName() {
+		return roleName;
 	}
-	
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
 }

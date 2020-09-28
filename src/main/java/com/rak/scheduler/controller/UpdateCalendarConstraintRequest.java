@@ -1,4 +1,4 @@
-package com.rak.scheduler.rest;
+package com.rak.scheduler.controller;
 
 import java.util.Date;
 

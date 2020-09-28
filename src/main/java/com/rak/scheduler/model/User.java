@@ -42,7 +42,7 @@ public class User extends AbstractAuditedEntity {
 	@ElementCollection(targetClass = UserRole.class)
 	@CollectionTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "id"))
 	@Column(name = "roles", nullable = false)
-	@Enumerated(EnumType.STRING)
+	//@Enumerated(EnumType.STRING)
 	private Set<UserRole> roles = new HashSet<UserRole>();
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="owner")  
