@@ -2,21 +2,16 @@ package com.rak.scheduler.model;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -25,15 +20,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "USER")
 public class User extends AbstractAuditedEntity {
-
-    /**
+	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7913456746762935474L;
+	private static final long serialVersionUID = 5717552275460680234L;
 	
 	@Id  
     @GeneratedValue(strategy=GenerationType.AUTO)  
-	private UUID id;
+	private Long id;
 	private String email;
 	private String firstName;
 	private String lastName;
@@ -51,11 +45,11 @@ public class User extends AbstractAuditedEntity {
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="owner")
 	private Set<Appointment> appointments = new HashSet<Appointment>();
 
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -115,5 +109,6 @@ public class User extends AbstractAuditedEntity {
 	public void setAppointments(Set<Appointment> appointments) {
 		this.appointments = appointments;
 	}
+	
 	
 }

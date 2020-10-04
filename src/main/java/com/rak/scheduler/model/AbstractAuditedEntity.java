@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -14,33 +16,36 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
 
 @MappedSuperclass
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class AbstractAuditedEntity implements Serializable {
-
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -4844545920499190301L;
+	private static final long serialVersionUID = -8244472840602247983L;
 
 	@CreationTimestamp
 	@Column(name = "CREATEDDTTM")
 	private Date created;
-	
-	@Version // use timestamp for optimistic locking
+
+	@Version // use timestamp for optimistic locking versions
 	@Type(type = "dbtimestamp") // use database time instead of vm time
 	@Column(name = "LASTUPDDTTM")
 	private Date lastUpdated;
-	
-	@Column(name = "CREATEDBY")
-	private String createdBy; 
-	
-	@Column(name = "LASTUPDBY")
-	private String lastUpdatedBy;
-	
+
+	//@Column(name = "CREATEDBY")
+	@ManyToOne
+	@JoinColumn(name = "created_user_id", nullable = false)
+	private User createdBy;
+
+	//@Column(name = "LASTUPDBY")
+	@ManyToOne
+	@JoinColumn(name = "updated_user_id", nullable = false)
+	private User lastUpdatedBy;
+
 	@Column(name = "ACTIVE")
-	@org.hibernate.annotations.Type(type="yes_no")
+	@org.hibernate.annotations.Type(type = "yes_no")
 	@NotNull
-	private Boolean active = Boolean.TRUE; 
+	private Boolean active = Boolean.TRUE; // soft delete means active = false
 
 	public Date getCreated() {
 		return created;
@@ -58,19 +63,19 @@ public abstract class AbstractAuditedEntity implements Serializable {
 		this.lastUpdated = lastUpdated;
 	}
 
-	public String getCreatedBy() {
+	public User getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(String createdBy) {
+	public void setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
 	}
 
-	public String getLastUpdatedBy() {
+	public User getLastUpdatedBy() {
 		return lastUpdatedBy;
 	}
 
-	public void setLastUpdatedBy(String lastUpdatedBy) {
+	public void setLastUpdatedBy(User lastUpdatedBy) {
 		this.lastUpdatedBy = lastUpdatedBy;
 	}
 
@@ -136,7 +141,5 @@ public abstract class AbstractAuditedEntity implements Serializable {
 		return "AbstractAuditedEntity [created=" + created + ", lastUpdated=" + lastUpdated + ", createdBy=" + createdBy
 				+ ", lastUpdatedBy=" + lastUpdatedBy + ", active=" + active + "]";
 	}
-	
-	
-	
+
 }

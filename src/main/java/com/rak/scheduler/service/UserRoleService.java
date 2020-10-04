@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.rak.scheduler.controller.exception.UserRoleNotFoundException;
 import com.rak.scheduler.model.UserRole;
 import com.rak.scheduler.repository.UserRoleRepository;
 
@@ -28,7 +27,7 @@ public class UserRoleService {
 		return (List<UserRole>) repository.findAll();
 	}
 
-	public Optional<UserRole> getUserRoleById(long id) {
+	public Optional<UserRole> getUserRoleById(Long id) {
 		return repository.findById(id);
 	}
 
