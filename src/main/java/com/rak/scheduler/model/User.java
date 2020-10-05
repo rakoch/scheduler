@@ -33,14 +33,14 @@ public class User extends AbstractAuditedEntity {
 	private String lastName;
 	private String phone;
 	
-	@ElementCollection(targetClass = UserRole.class)
+	@ElementCollection(targetClass = Role.class)
 	@CollectionTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "id"))
 	@Column(name = "roles", nullable = false)
 	//@Enumerated(EnumType.STRING)
-	private Set<UserRole> roles = new HashSet<UserRole>();
+	private Set<Role> roles = new HashSet<Role>();
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="owner")  
-	private Set<CalendarConstraint> calendarConstraints = new HashSet<CalendarConstraint>();
+	private Set<AvailableSlot> calendarConstraints = new HashSet<AvailableSlot>();
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="owner")
 	private Set<Appointment> appointments = new HashSet<Appointment>();
@@ -86,19 +86,19 @@ public class User extends AbstractAuditedEntity {
 	}
 
 
-	public Set<UserRole> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<UserRole> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 
-	public Set<CalendarConstraint> getCalendarConstraints() {
+	public Set<AvailableSlot> getCalendarConstraints() {
 		return calendarConstraints;
 	}
 
-	public void setCalendarConstraints(Set<CalendarConstraint> calendarConstraints) {
+	public void setCalendarConstraints(Set<AvailableSlot> calendarConstraints) {
 		this.calendarConstraints = calendarConstraints;
 	}
 

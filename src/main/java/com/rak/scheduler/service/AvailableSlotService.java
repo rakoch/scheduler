@@ -6,16 +6,16 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.rak.scheduler.model.CalendarConstraint;
+import com.rak.scheduler.model.AvailableSlot;
 import com.rak.scheduler.repository.CalendarConstraintRepository;
 
 @Component
-public class CalendarConstraintService {
+public class AvailableSlotService {
 
 	@Autowired
 	CalendarConstraintRepository repository;
 
-	public CalendarConstraint saveOrUpdates(CalendarConstraint constraint) {
+	public AvailableSlot saveOrUpdates(AvailableSlot constraint) {
 		return repository.save(constraint);
 	}
 
@@ -23,11 +23,11 @@ public class CalendarConstraintService {
 		repository.deleteById(id);
 	}
 
-	public List<CalendarConstraint> getCalendarConstraints() {
-		return (List<CalendarConstraint>) repository.findAll();
+	public List<AvailableSlot> getCalendarConstraints() {
+		return (List<AvailableSlot>) repository.findAll();
 	}
 
-	public Optional<CalendarConstraint> getCalendarConstraintById(long id) {
+	public Optional<AvailableSlot> getCalendarConstraintById(long id) {
 		 return repository.findById(id);
 	}
 

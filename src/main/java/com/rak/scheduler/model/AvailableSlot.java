@@ -12,8 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "CALENDAR_CONSTRAINT")
-public class CalendarConstraint extends AbstractAuditedEntity {
+@Table(name = "AVAILABLE_SLOT")
+public class AvailableSlot extends AbstractAuditedEntity {
 	
 	/**
 	 * 
@@ -32,11 +32,11 @@ public class CalendarConstraint extends AbstractAuditedEntity {
 	private Date end;
 	private double cost;
 	
-	public CalendarConstraint(CalendarConstraint constraint) {
-		new CalendarConstraint(constraint.getId(), constraint.getOwner(), constraint.getStart(), constraint.getEnd(), constraint.getCost());
+	public AvailableSlot(AvailableSlot constraint) {
+		new AvailableSlot(constraint.getId(), constraint.getOwner(), constraint.getStart(), constraint.getEnd(), constraint.getCost());
 	}
 
-	public CalendarConstraint(Long id, User owner, Date start, Date end, double cost) {
+	public AvailableSlot(Long id, User owner, Date start, Date end, double cost) {
 		super();
 		this.id = id;
 		this.owner = owner;
@@ -45,7 +45,7 @@ public class CalendarConstraint extends AbstractAuditedEntity {
 		this.cost = cost;
 	}
 	
-	public CalendarConstraint() {
+	public AvailableSlot() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

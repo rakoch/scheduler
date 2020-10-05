@@ -15,34 +15,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rak.scheduler.controller.exception.CalendarConstraintNotFoundException;
-import com.rak.scheduler.model.CalendarConstraint;
-import com.rak.scheduler.service.CalendarConstraintService;
+import com.rak.scheduler.model.AvailableSlot;
+import com.rak.scheduler.service.AvailableSlotService;
 
 @RestController
-@RequestMapping("/contraints")
-public class CalendarConstraintController {
-	@Autowired CalendarConstraintService service;
+@RequestMapping("/availableslots")
+public class AvailableSlotController {
+	@Autowired AvailableSlotService service;
 	
 
     @GetMapping
-    public List<CalendarConstraint> get() {
+    public List<AvailableSlot> get() {
         return service.getCalendarConstraints();
     }
 
     @PostMapping
-    public CalendarConstraint post(@RequestBody CreateCalendarConstraintRequest request) {
-    	return service.saveOrUpdates(new CalendarConstraint(null, request.getOwner(), request.getStart(), request.getEnd(), request.getCost()));
+    public AvailableSlot post(@RequestBody CreateAvailableSlotRequest request) {
+    	return service.saveOrUpdates(new AvailableSlot(null, request.getOwner(), request.getStart(), request.getEnd(), request.getCost()));
     }
     
     @PutMapping
-    public CalendarConstraint post(@RequestBody UpdateCalendarConstraintRequest request) {
-    	return service.saveOrUpdates(new CalendarConstraint(request.getId(), request.getOwner(), request.getStart(), request.getEnd(), request.getCost()));
+    public AvailableSlot post(@RequestBody UpdateAvailableSlotRequest request) {
+    	return service.saveOrUpdates(new AvailableSlot(request.getId(), request.getOwner(), request.getStart(), request.getEnd(), request.getCost()));
     }
     
     @GetMapping("/{id}")
-    public CalendarConstraint getById(@PathVariable(required = true) long id) {
-    	Optional<CalendarConstraint> optionalCalendarConstraint = service.getCalendarConstraintById(id);
-		return optionalCalendarConstraint.orElseThrow(() -> new CalendarConstraintNotFoundException("Couldn't find a CalendarConstraint with id: " + id));
+    public AvailableSlot getById(@PathVariable(required = true) long id) {
+    	Optional<AvailableSlot> optionalCalendarConstraint = service.getCalendarConstraintById(id);
+		return optionalCalendarConstraint.orElseThrow(() -> new CalendarConstraintNotFoundException("Couldn't find a AvailableSlot with id: " + id));
     }
 
     @DeleteMapping("/{id}")

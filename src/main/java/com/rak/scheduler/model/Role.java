@@ -7,8 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "USER_ROLE")
-public class UserRole extends AbstractAuditedEntity {
+@Table(name = "ROLE")
+public class Role extends AbstractAuditedEntity {
 
 	//ADMIN(0), PROVIDER(1), CLIENT(2);
 	
@@ -23,7 +23,7 @@ public class UserRole extends AbstractAuditedEntity {
 	private String roleName;
 	
 
-	public UserRole(Long id, String roleName) {
+	public Role(Long id, String roleName) {
 		super();
 		this.id = id;
 		this.roleName = roleName;

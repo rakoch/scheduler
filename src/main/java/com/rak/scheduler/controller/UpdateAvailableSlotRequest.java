@@ -4,11 +4,11 @@ import java.util.Date;
 
 import com.rak.scheduler.model.User;
 
-public class UpdateCalendarConstraintRequest extends CreateCalendarConstraintRequest {
+public class UpdateAvailableSlotRequest extends CreateAvailableSlotRequest {
 
 	private long id;
 
-	public UpdateCalendarConstraintRequest(long id, User owner, Date start, Date end, double cost) {
+	public UpdateAvailableSlotRequest(long id, User owner, Date start, Date end, double cost) {
 		super(owner, start, end, cost);
 		this.id = id;
 	}

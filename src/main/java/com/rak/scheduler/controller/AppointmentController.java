@@ -32,7 +32,8 @@ public class AppointmentController {
     // Appointment(Long id, User owner, Date start, Date end, double cost, Set<User> participants, String description, String title) {
     @PostMapping
     public ResponseEntity post(@RequestBody CreateAppointmentRequest request) {
-    	service.saveOrUpdates(new Appointment(null, request.getOwner(), request.getStart(), request.getEnd(), request.getCost(), request.getParticipants(), request.getDescription(), request.getTitle()));
+    	// TODO get current user to make owner
+    	service.saveOrUpdates(new Appointment(request.getAvailableSlot(), null, request.getParticipants(), request.getTitle(), request.getDescription()));
         return ResponseEntity.ok().build();
     }
     
