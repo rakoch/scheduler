@@ -40,7 +40,7 @@ public class User extends AbstractAuditedEntity {
 	private Set<Role> roles = new HashSet<Role>();
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="owner")  
-	private Set<AvailableSlot> calendarConstraints = new HashSet<AvailableSlot>();
+	private Set<AvailableSlot> availableSlots = new HashSet<AvailableSlot>();
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="owner")
 	private Set<Appointment> appointments = new HashSet<Appointment>();
@@ -94,12 +94,12 @@ public class User extends AbstractAuditedEntity {
 		this.roles = roles;
 	}
 
-	public Set<AvailableSlot> getCalendarConstraints() {
-		return calendarConstraints;
+	public Set<AvailableSlot> getAvailableSlots() {
+		return availableSlots;
 	}
 
-	public void setCalendarConstraints(Set<AvailableSlot> calendarConstraints) {
-		this.calendarConstraints = calendarConstraints;
+	public void setAvailableSlots(Set<AvailableSlot> availableSlots) {
+		this.availableSlots = availableSlots;
 	}
 
 	public Set<Appointment> getAppointments() {

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rak.scheduler.controller.exception.CalendarConstraintNotFoundException;
+import com.rak.scheduler.controller.exception.AvailableSlotNotFoundException;
 import com.rak.scheduler.model.AvailableSlot;
 import com.rak.scheduler.service.AvailableSlotService;
 
@@ -26,7 +26,7 @@ public class AvailableSlotController {
 
     @GetMapping
     public List<AvailableSlot> get() {
-        return service.getCalendarConstraints();
+        return service.getAvailableSlots();
     }
 
     @PostMapping
@@ -41,8 +41,8 @@ public class AvailableSlotController {
     
     @GetMapping("/{id}")
     public AvailableSlot getById(@PathVariable(required = true) long id) {
-    	Optional<AvailableSlot> optionalCalendarConstraint = service.getCalendarConstraintById(id);
-		return optionalCalendarConstraint.orElseThrow(() -> new CalendarConstraintNotFoundException("Couldn't find a AvailableSlot with id: " + id));
+    	Optional<AvailableSlot> optionalAvailableSlot = service.getAvailableSlotsById(id);
+		return optionalAvailableSlot.orElseThrow(() -> new AvailableSlotNotFoundException("Couldn't find a AvailableSlot with id: " + id));
     }
 
     @DeleteMapping("/{id}")

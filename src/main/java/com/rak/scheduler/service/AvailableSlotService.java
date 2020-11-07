@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.rak.scheduler.model.AvailableSlot;
-import com.rak.scheduler.repository.CalendarConstraintRepository;
+import com.rak.scheduler.repository.AvailableSlotRepository;
 
 @Component
 public class AvailableSlotService {
 
 	@Autowired
-	CalendarConstraintRepository repository;
+	AvailableSlotRepository repository;
 
 	public AvailableSlot saveOrUpdates(AvailableSlot availableSlot) {
 		return repository.save(availableSlot);
@@ -23,11 +23,11 @@ public class AvailableSlotService {
 		repository.deleteById(id);
 	}
 
-	public List<AvailableSlot> getCalendarConstraints() {
+	public List<AvailableSlot> getAvailableSlots() {
 		return (List<AvailableSlot>) repository.findAll();
 	}
 
-	public Optional<AvailableSlot> getCalendarConstraintById(long id) {
+	public Optional<AvailableSlot> getAvailableSlotsById(long id) {
 		 return repository.findById(id);
 	}
 
