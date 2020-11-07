@@ -11,6 +11,7 @@ import javax.persistence.Table;
 public class Role extends AbstractAuditedEntity {
 
 	//ADMIN(0), PROVIDER(1), CLIENT(2);
+	//TODO look into making enum tie to table rows and possibly use spring security table for roles
 	
 	/**
 	 * 

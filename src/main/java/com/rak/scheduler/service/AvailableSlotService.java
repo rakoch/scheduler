@@ -15,8 +15,8 @@ public class AvailableSlotService {
 	@Autowired
 	CalendarConstraintRepository repository;
 
-	public AvailableSlot saveOrUpdates(AvailableSlot constraint) {
-		return repository.save(constraint);
+	public AvailableSlot saveOrUpdates(AvailableSlot availableSlot) {
+		return repository.save(availableSlot);
 	}
 
 	public void delete(long id) {

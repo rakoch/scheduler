@@ -33,10 +33,10 @@ public class User extends AbstractAuditedEntity {
 	private String lastName;
 	private String phone;
 	
+	//@Enumerated(EnumType.STRING) TODO use enum or not
 	@ElementCollection(targetClass = Role.class)
 	@CollectionTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "id"))
 	@Column(name = "roles", nullable = false)
-	//@Enumerated(EnumType.STRING)
 	private Set<Role> roles = new HashSet<Role>();
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="owner")  

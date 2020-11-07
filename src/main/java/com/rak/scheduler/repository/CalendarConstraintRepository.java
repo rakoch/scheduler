@@ -7,7 +7,7 @@ import com.rak.scheduler.model.Appointment;
 import com.rak.scheduler.model.AvailableSlot;
 
 @Repository
-public interface CalendarConstraintRepository extends JpaRepository<AvailableSlot	, Long> {
+public interface CalendarConstraintRepository extends JpaRepository<AvailableSlot, Long> {
 	 
 }
 

@@ -2,12 +2,10 @@ package com.rak.scheduler.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.rak.scheduler.controller.exception.UserNotFoundException;
 import com.rak.scheduler.model.User;
 import com.rak.scheduler.repository.UserRepository;
 
@@ -21,7 +19,7 @@ public class UserService {
 		repository.save(user);
 	}
 
-	public void delete(UUID id) {
+	public void delete(Long id) {
 		repository.deleteById(id);
 	}
 
@@ -29,7 +27,7 @@ public class UserService {
 		return (List<User>) repository.findAll();
 	}
 
-	public Optional<User> getAppointmentById(UUID id) {
+	public Optional<User> getAppointmentById(Long id) {
 		return repository.findById(id);
 	}
 
