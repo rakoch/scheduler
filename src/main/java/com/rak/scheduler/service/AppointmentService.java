@@ -15,12 +15,16 @@ public class AppointmentService {
 	@Autowired
 	AppointmentRepository repository;
 
-	public void saveOrUpdates(Appointment appointment) {
-		repository.save(appointment);
+	public Appointment saveOrUpdates(Appointment appointment) {
+		return repository.save(appointment);
 	}
 
-	public void delete(long id) {
-		repository.deleteById(id);
+	public Optional<Appointment> delete(long id) {
+		Optional<Appointment> appt = this.getAppointmentById(id);
+		if(appt.isPresent()) {
+			repository.deleteById(id);
+		}
+		return appt;
 	}
 
 	public List<Appointment> getAppointments() {

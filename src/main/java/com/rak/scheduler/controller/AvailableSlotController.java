@@ -21,33 +21,52 @@ import com.rak.scheduler.service.AvailableSlotService;
 @RestController
 @RequestMapping("/availableslots")
 public class AvailableSlotController {
-	@Autowired AvailableSlotService service;
-	
+	@Autowired
+	AvailableSlotService service;
 
-    @GetMapping
-    public List<AvailableSlot> get() {
-        return service.getAvailableSlots();
-    }
+	@GetMapping
+	public List<AvailableSlot> getAll() {
+		return service.getAvailableSlots();
+	}
 
-    @PostMapping
-    public AvailableSlot post(@RequestBody CreateAvailableSlotRequest request) {
-    	return service.saveOrUpdates(new AvailableSlot(null, request.getOwner(), request.getStart(), request.getEnd(), request.getCost()));
-    }
-    
-    @PutMapping
-    public AvailableSlot post(@RequestBody UpdateAvailableSlotRequest request) {
-    	return service.saveOrUpdates(new AvailableSlot(request.getId(), request.getOwner(), request.getStart(), request.getEnd(), request.getCost()));
-    }
-    
-    @GetMapping("/{id}")
-    public AvailableSlot getById(@PathVariable(required = true) long id) {
-    	Optional<AvailableSlot> optionalAvailableSlot = service.getAvailableSlotsById(id);
-		return optionalAvailableSlot.orElseThrow(() -> new AvailableSlotNotFoundException("Couldn't find a AvailableSlot with id: " + id));
-    }
+	// AvailableSlot(Long id, User owner, Date start, Date end, double cost,
+	// Set<User> participants, String description, String title) {
+	@PostMapping
+	public ResponseEntity<AvailableSlot> post(@RequestBody CreateAvailableSlotRequest request) {
+		// TODO get current user to make owner
+		AvailableSlot newAvailableSlot = service.saveOrUpdates(
+				new AvailableSlot(null, request.getOwner(), request.getStart(), request.getEnd(), request.getCost()));
+		if (newAvailableSlot == null) {
+			return ResponseEntity.notFound().build(); // TODO not sure I want or have to do this extra code
+		} else {
+			return ResponseEntity.ok(newAvailableSlot);
+		}
+	}
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable(required = true) long id) {
-        service.delete(id);
-    }
-    
+	@PutMapping
+	public ResponseEntity<AvailableSlot> put(@RequestBody UpdateAvailableSlotRequest request) {
+		AvailableSlot updatedAvailableSlot = service.saveOrUpdates(new AvailableSlot(request.getId(),
+				request.getOwner(), request.getStart(), request.getEnd(), request.getCost()));
+		if (updatedAvailableSlot == null) {
+			return ResponseEntity.notFound().build(); // TODO not sure I want or have to do this extra code
+		} else {
+			return ResponseEntity.ok(updatedAvailableSlot);
+		}
+	}
+
+	@GetMapping("/{id}")
+	public AvailableSlot getById(@PathVariable(required = true) long id) {
+		Optional<AvailableSlot> optionalAvailableSlot = service.getAvailableSlotById(id);
+		return optionalAvailableSlot
+				.orElseThrow(() -> new AvailableSlotNotFoundException("Couldn't find an AvailableSlot with id: " + id));
+
+	}
+
+	@DeleteMapping("/{id}")
+	public AvailableSlot delete(@PathVariable(required = true) long id) {
+		Optional<AvailableSlot> optionalAvailableSlot = service.delete(id);
+		return optionalAvailableSlot.orElseThrow(
+				() -> new AvailableSlotNotFoundException("Couldn't find and delete an AvailableSlot with id: " + id));
+	}
+
 }

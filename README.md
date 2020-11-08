@@ -16,7 +16,7 @@
 
 ### You have several options on how to run and Test local rest End points
 #### Run as Java in Eclipse
-- Run from within eclipse by using ‘Run as Java’ SchedulerApplication.java
+- Run from within eclipse by using ‘Run as -> Java Application’ on the SchedulerApplication.java
 - Test with swagger: http://localhost:8080/schedapp/swagger-ui.html
 
 #### Run from command line using spring-boot:run

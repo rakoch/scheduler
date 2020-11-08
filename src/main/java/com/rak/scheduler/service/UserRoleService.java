@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.rak.scheduler.model.AvailableSlot;
 import com.rak.scheduler.model.Role;
 import com.rak.scheduler.repository.UserRoleRepository;
 
@@ -19,15 +20,19 @@ public class UserRoleService {
 		repository.save(userRole);
 	}
 
-	public void delete(long id) {
-		repository.deleteById(id);
+	public Optional<Role> delete(long id) {
+		Optional<Role> role = this.getRoleById(id);
+		if(role.isPresent()) {
+			repository.deleteById(id);
+		}
+		return role;
 	}
 
 	public List<Role> getUserRoles() {
 		return (List<Role>) repository.findAll();
 	}
 
-	public Optional<Role> getUserRoleById(Long id) {
+	public Optional<Role> getRoleById(Long id) {
 		return repository.findById(id);
 	}
 

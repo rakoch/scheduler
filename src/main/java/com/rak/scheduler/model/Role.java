@@ -30,6 +30,13 @@ public class Role extends AbstractAuditedEntity {
 		this.roleName = roleName;
 	}
 
+	
+	public Role() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public Long getId() {
 		return id;
 	}

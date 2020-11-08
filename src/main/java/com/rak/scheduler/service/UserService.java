@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.rak.scheduler.model.Role;
 import com.rak.scheduler.model.User;
 import com.rak.scheduler.repository.UserRepository;
 
@@ -15,19 +16,23 @@ public class UserService {
 	@Autowired
 	UserRepository repository;
 
-	public void saveOrUpdates(User user) {
-		repository.save(user);
+	public User saveOrUpdates(User user) {
+		return repository.save(user);
 	}
 
-	public void delete(Long id) {
-		repository.deleteById(id);
+	public Optional<User> delete(long id) {
+		Optional<User> user = this.getUserById(id);
+		if(user.isPresent()) {
+			repository.deleteById(id);
+		}
+		return user;
 	}
 
-	public List<User> getAppointments() {
+	public List<User> getUsers() {
 		return (List<User>) repository.findAll();
 	}
 
-	public Optional<User> getAppointmentById(Long id) {
+	public Optional<User> getUserById(Long id) {
 		return repository.findById(id);
 	}
 

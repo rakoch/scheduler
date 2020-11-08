@@ -45,6 +45,26 @@ public class User extends AbstractAuditedEntity {
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="owner")
 	private Set<Appointment> appointments = new HashSet<Appointment>();
 
+	public User(Long id, String email, String firstName, String lastName, String phone, Set<Role> roles,
+			Set<AvailableSlot> availableSlots, Set<Appointment> appointments) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phone = phone;
+		this.roles = roles;
+		this.availableSlots = availableSlots;
+		this.appointments = appointments;
+	}
+
+	
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public Long getId() {
 		return id;
 	}

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.rak.scheduler.model.Appointment;
 import com.rak.scheduler.model.AvailableSlot;
 import com.rak.scheduler.repository.AvailableSlotRepository;
 
@@ -19,15 +20,19 @@ public class AvailableSlotService {
 		return repository.save(availableSlot);
 	}
 
-	public void delete(long id) {
-		repository.deleteById(id);
+	public Optional<AvailableSlot> delete(long id) {
+		Optional<AvailableSlot> availableSlot = this.getAvailableSlotById(id);
+		if(availableSlot.isPresent()) {
+			repository.deleteById(id);
+		}
+		return availableSlot;
 	}
 
 	public List<AvailableSlot> getAvailableSlots() {
 		return (List<AvailableSlot>) repository.findAll();
 	}
 
-	public Optional<AvailableSlot> getAvailableSlotsById(long id) {
+	public Optional<AvailableSlot> getAvailableSlotById(long id) {
 		 return repository.findById(id);
 	}
 

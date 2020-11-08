@@ -17,34 +17,35 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "APPOINTMENT")
 public class Appointment extends AbstractAuditedEntity {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -2663466529675539524L;
-	
-    @Id  
-    @GeneratedValue(strategy=GenerationType.AUTO)  
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-    
-    @ManyToOne(cascade=CascadeType.ALL) 
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	private User owner;
 	private Date start;
 	private Date end;
-	
+
 	@ManyToMany(cascade = { CascadeType.ALL })
-	@JoinTable(
-			name = "APPOINTMENT_USER", 
-			joinColumns = { @JoinColumn(name = "APPOINTMENT_ID") }, 
-			inverseJoinColumns = { @JoinColumn(name = "USER_ID") }
-			)
+	@JoinTable(name = "APPOINTMENT_USER", joinColumns = { @JoinColumn(name = "APPOINTMENT_ID") }, inverseJoinColumns = {
+			@JoinColumn(name = "USER_ID") })
 	private Set<User> participants;
 	private String title;
 	private String description;
 
 	private Double cost;
-	
-	
+
+	public Appointment() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Appointment(Long id, User owner, Date start, Date end, Double cost, Set<User> participants, String title,
 			String description) {
 		super();
@@ -58,7 +59,8 @@ public class Appointment extends AbstractAuditedEntity {
 		this.cost = cost;
 	}
 
-	public Appointment(AvailableSlot availableSlot, User owner, Set<User> participants, String title, String description) {
+	public Appointment(AvailableSlot availableSlot, User owner, Set<User> participants, String title,
+			String description) {
 		super();
 		this.owner = owner;
 		this.start = availableSlot.getStart();
@@ -132,7 +134,5 @@ public class Appointment extends AbstractAuditedEntity {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-   
-	
 
 }

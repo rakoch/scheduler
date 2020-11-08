@@ -21,38 +21,53 @@ import com.rak.scheduler.service.AppointmentService;
 @RestController
 @RequestMapping("/appointments")
 public class AppointmentController {
-	@Autowired AppointmentService service;
-	
+	@Autowired
+	AppointmentService service;
 
-    @GetMapping
-    public List<Appointment> get() {
-        return service.getAppointments();
-    }
+	@GetMapping
+	public List<Appointment> getAll() {
+		return service.getAppointments();
+	}
 
-    // Appointment(Long id, User owner, Date start, Date end, double cost, Set<User> participants, String description, String title) {
-    @PostMapping
-    public ResponseEntity post(@RequestBody CreateAppointmentRequest request) {
-    	// TODO get current user to make owner
-    	service.saveOrUpdates(new Appointment(request.getAvailableSlot(), null, request.getParticipants(), request.getTitle(), request.getDescription()));
-        return ResponseEntity.ok().build();
-    }
-    
-    @PutMapping
-    public ResponseEntity post(@RequestBody UpdateAppointmentRequest request) {
-    	service.saveOrUpdates(new Appointment(request.getId(), request.getOwner(), request.getStart(), request.getEnd(), request.getCost(), request.getParticipants(), request.getDescription(), request.getTitle()));
-        return ResponseEntity.ok().build();
-    }
-    
-    @GetMapping("/{id}")
-    public Appointment getById(@PathVariable(required = true) long id) {
-    	Optional<Appointment> optionalAppointment = service.getAppointmentById(id);
-		return optionalAppointment.orElseThrow(() -> new AppointmentNotFoundException("Couldn't find a Appointment with id: " + id));
+	// Appointment(Long id, User owner, Date start, Date end, double cost, Set<User>
+	// participants, String description, String title) {
+	@PostMapping
+	public ResponseEntity<Appointment> post(@RequestBody CreateAppointmentRequest request) {
+		// TODO get current user to make owner
+		Appointment newAppointment = service.saveOrUpdates(new Appointment(request.getAvailableSlot(), null,
+				request.getParticipants(), request.getTitle(), request.getDescription()));
+		if (newAppointment == null) {
+			return ResponseEntity.notFound().build(); // TODO not sure I want or have to do this extra code
+		} else {
+			return ResponseEntity.ok(newAppointment);
+		}
+	}
 
-    }
+	@PutMapping
+	public ResponseEntity<Appointment> put(@RequestBody UpdateAppointmentRequest request) {
+		Appointment updatedAppointment = service.saveOrUpdates(
+				new Appointment(request.getId(), request.getOwner(), request.getStart(), request.getEnd(),
+						request.getCost(), request.getParticipants(), request.getDescription(), request.getTitle()));
+		if (updatedAppointment == null) {
+			return ResponseEntity.notFound().build(); // TODO not sure I want or have to do this extra code
+		} else {
+			return ResponseEntity.ok(updatedAppointment);
+		}
+	}
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable(required = true) long id) {
-        service.delete(id);
-    }
-    
+	@GetMapping("/{id}")
+	public Appointment getById(@PathVariable(required = true) long id) {
+		Optional<Appointment> optionalAppointment = service.getAppointmentById(id);
+		return optionalAppointment
+				.orElseThrow(() -> new AppointmentNotFoundException("Couldn't find an Appointment with id: " + id));
+
+	}
+
+	@DeleteMapping("/{id}")
+	public Appointment delete(@PathVariable(required = true) long id) {
+		Optional<Appointment> optionalAppointment = service.delete(id);
+		return optionalAppointment.orElseThrow(
+				() -> new AppointmentNotFoundException("Couldn't find and delete an Appointment with id: " + id));
+	}
+
 }

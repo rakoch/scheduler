@@ -32,8 +32,10 @@ public class AvailableSlot extends AbstractAuditedEntity {
 	private Date end;
 	private double cost;
 	
-	public AvailableSlot(AvailableSlot constraint) {
-		new AvailableSlot(constraint.getId(), constraint.getOwner(), constraint.getStart(), constraint.getEnd(), constraint.getCost());
+	
+	public AvailableSlot(AvailableSlot availableSlot) {
+		super();
+		new AvailableSlot(availableSlot.getId(), availableSlot.getOwner(), availableSlot.getStart(), availableSlot.getEnd(), availableSlot.getCost());
 	}
 
 	public AvailableSlot(Long id, User owner, Date start, Date end, double cost) {
@@ -47,7 +49,6 @@ public class AvailableSlot extends AbstractAuditedEntity {
 	
 	public AvailableSlot() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Long getId() {

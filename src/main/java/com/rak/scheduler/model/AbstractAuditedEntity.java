@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -27,20 +28,22 @@ public abstract class AbstractAuditedEntity implements Serializable {
 	@Column(name = "CREATEDDTTM")
 	private Date created;
 
+	@UpdateTimestamp
 	@Version // use timestamp for optimistic locking versions
 	@Type(type = "dbtimestamp") // use database time instead of vm time
 	@Column(name = "LASTUPDDTTM")
 	private Date lastUpdated;
 
-	//@Column(name = "CREATEDBY")
-	@ManyToOne
-	@JoinColumn(name = "created_user_id", nullable = false)
-	private User createdBy;
-
-	//@Column(name = "LASTUPDBY")
-	@ManyToOne
-	@JoinColumn(name = "updated_user_id", nullable = false)
-	private User lastUpdatedBy;
+	// TODO need to introduce authentication & principal for this to work 
+//	//@Column(name = "CREATEDBY")
+//	@ManyToOne
+//	@JoinColumn(name = "created_user_id", nullable = false)
+//	private User createdBy;
+//
+//	//@Column(name = "LASTUPDBY")
+//	@ManyToOne
+//	@JoinColumn(name = "updated_user_id", nullable = false)
+//	private User lastUpdatedBy;
 
 	@Column(name = "ACTIVE")
 	@org.hibernate.annotations.Type(type = "yes_no")
@@ -63,21 +66,21 @@ public abstract class AbstractAuditedEntity implements Serializable {
 		this.lastUpdated = lastUpdated;
 	}
 
-	public User getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(User createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public User getLastUpdatedBy() {
-		return lastUpdatedBy;
-	}
-
-	public void setLastUpdatedBy(User lastUpdatedBy) {
-		this.lastUpdatedBy = lastUpdatedBy;
-	}
+//	public User getCreatedBy() {
+//		return createdBy;
+//	}
+//
+//	public void setCreatedBy(User createdBy) {
+//		this.createdBy = createdBy;
+//	}
+//
+//	public User getLastUpdatedBy() {
+//		return lastUpdatedBy;
+//	}
+//
+//	public void setLastUpdatedBy(User lastUpdatedBy) {
+//		this.lastUpdatedBy = lastUpdatedBy;
+//	}
 
 	public Boolean getActive() {
 		return active;
@@ -93,9 +96,9 @@ public abstract class AbstractAuditedEntity implements Serializable {
 		int result = 1;
 		result = prime * result + ((active == null) ? 0 : active.hashCode());
 		result = prime * result + ((created == null) ? 0 : created.hashCode());
-		result = prime * result + ((createdBy == null) ? 0 : createdBy.hashCode());
+//		result = prime * result + ((createdBy == null) ? 0 : createdBy.hashCode());
 		result = prime * result + ((lastUpdated == null) ? 0 : lastUpdated.hashCode());
-		result = prime * result + ((lastUpdatedBy == null) ? 0 : lastUpdatedBy.hashCode());
+//		result = prime * result + ((lastUpdatedBy == null) ? 0 : lastUpdatedBy.hashCode());
 		return result;
 	}
 
@@ -118,28 +121,29 @@ public abstract class AbstractAuditedEntity implements Serializable {
 				return false;
 		} else if (!created.equals(other.created))
 			return false;
-		if (createdBy == null) {
-			if (other.createdBy != null)
-				return false;
-		} else if (!createdBy.equals(other.createdBy))
-			return false;
+//		if (createdBy == null) {
+//			if (other.createdBy != null)
+//				return false;
+//		} else if (!createdBy.equals(other.createdBy))
+//			return false;
 		if (lastUpdated == null) {
 			if (other.lastUpdated != null)
 				return false;
 		} else if (!lastUpdated.equals(other.lastUpdated))
 			return false;
-		if (lastUpdatedBy == null) {
-			if (other.lastUpdatedBy != null)
-				return false;
-		} else if (!lastUpdatedBy.equals(other.lastUpdatedBy))
-			return false;
+//		if (lastUpdatedBy == null) {
+//			if (other.lastUpdatedBy != null)
+//				return false;
+//		} else if (!lastUpdatedBy.equals(other.lastUpdatedBy))
+//			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "AbstractAuditedEntity [created=" + created + ", lastUpdated=" + lastUpdated + ", createdBy=" + createdBy
-				+ ", lastUpdatedBy=" + lastUpdatedBy + ", active=" + active + "]";
+		return "AbstractAuditedEntity [created=" + created + ", lastUpdated=" + lastUpdated + 
+				//", createdBy=" + createdBy + ", lastUpdatedBy=" + lastUpdatedBy + 
+				", active=" + active + "]";
 	}
 
 }
