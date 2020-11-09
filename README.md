@@ -5,7 +5,7 @@
 ## Dependencies
 - OpenJdk 11 OR Amazon Corretto 11 JDK
 - maven 4.0+
-- Docker desktop installed if going to use docker locally
+- Docker desktop installed 
 
 ## Things to note
 - Right now the app start recreates all tables and drops all data - will adjust as progress on project
@@ -17,7 +17,7 @@
 - use master branch
 - open a terminal or command shell
 - cd to the project root for all options below--e.g., `cd ~/workspace/scheduler`
-- Make sure docker desktop is running and cleaned out of containers and images for this project
+- Make sure docker desktop is running and cleaned out of this project's containers and images
 - in terminal:  `docker pull mysql`
 
 ### You have several options on how to run and Test local rest End points
@@ -53,20 +53,24 @@
 
 ### use docker-compose to start everything
 - assumes mvn install/build was performed TODO make this part of the deploy
+- NOTE this takes severl minutes because the app does not start until mysql health check succeeds.
 - remove any previous mysql and scheduler docker containers and images
 - `docker-compose up --build -d`
+- Test with swagger: [http://localhost:8080/schedapp/swagger-ui.html](http://localhost:8080/schedapp/swagger-ui.html)
+
 
 ### In Swagger
 - in the browser enter the link for openapi/swagger ui and try out the endpoint (click try it, then blue execute button): http://localhost:8080/swagger-ui.html
 
-## How to run Integration Tests
-- TODO need to explain need for container running dbase
+## How to run Integration Tests (No real tests yet)
 - Have to download source from https://github.com/rakoch/scheduler.git
 - use master branch
 - open a terminal or command shell
-- cd to the project root--e.g., ~/workspace/scheduler
-- type in command: mvn test
-- should see results: Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+- cd to the project root--e.g., `cd ~/workspace/scheduler`
+- remove any previous mysql and scheduler docker containers and images
+- `docker run --name mysql -p  127.0.0.1:3306:3306 -e MYSQL_ROOT_PASSWORD="password" mysql &`
+- type in command: `mvn test`
+- should see results: Tests run: ?, Failures: 0, Errors: 0, Skipped: 0
 
 ## Notes on initial project creation
 - use spring initilzr  - web, actuator, devtools - see pom.xml
