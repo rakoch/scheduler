@@ -31,7 +31,7 @@
 - remove any previous mysql and scheduler docker containers and images
 - `docker run --name mysql -p  127.0.0.1:3306:3306 -e MYSQL_ROOT_PASSWORD="password" mysql &`
 - start the app with this command: ./mvnw spring-boot:run
-- Test with swagger: http://localhost:8080/schedapp/swagger-ui.html
+- Test with swagger: [http://localhost:8080/schedapp/swagger-ui.html](http://localhost:8080/schedapp/swagger-ui.html)
 
 #### Run app in docker container using DockerFile
 - remove any previous mysql and scheduler docker containers and images
@@ -41,7 +41,7 @@
 - Test run of application if you want: java -jar target\scheduler-0.0.1-SNAPSHOT.jar
 - `docker build  -t scheduler:v1 .`
 - `docker run -it -p8080:8080 scheduler:v1`
-- Test with swagger: http://localhost:8080/schedapp/swagger-ui.html
+- Test with swagger: [http://localhost:8080/schedapp/swagger-ui.html](http://localhost:8080/schedapp/swagger-ui.html)
 
 #### Run in docker container using Buildpack through spring-boot:build-image
 - remove any previous mysql and scheduler docker containers and images
@@ -49,7 +49,7 @@
 - Deploy to Docker using Spring Boot Buildpack
 - `mvnw spring-boot:build-image`
 - `docker run -it -p8080:8080 scheduler:0.0.1-SNAPSHOT`
-- Test with swagger: http://localhost:8080/schedapp/swagger-ui.html
+- Test with swagger: [http://localhost:8080/schedapp/swagger-ui.html](http://localhost:8080/schedapp/swagger-ui.html)
 
 ### use docker-compose to start everything
 - assumes mvn install/build was performed TODO make this part of the deploy
