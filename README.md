@@ -1,4 +1,4 @@
-# Scheduler Service & Web Project
+# Scheduler Service with REST endpoints [& eventually a Web Project or will create separate front-end service]
 ## Assumptions
 - you have the knowledge to install Java, Maven, Docker Desktop, and an IDE like Eclipse
 
@@ -8,8 +8,12 @@
 - Docker desktop installed 
 
 ## Things to note
-- Right now the app start recreates all tables and drops all data - will adjust as progress on project
-- The app build is dependent on a mysql container to be up and running
+- The project is a scheduler containerized service with the intent to support client and provider users to schedule appointments.
+- Providers will place available [time] slots, and clients will see and schedule appoinments.
+- As of 11/9/2020 this is far from complete and this is a learning exercise in spring boot, JPA, docker, docker-compose, and eventually React & kubernetes.
+- Right now the app start-up recreates all tables and drops all data - will adjust as progress on project...
+- The scheduler spring boot app build is dependent on a mysql container to be up and running since the maven build creates the tables right now and run tests.
+- The test infrastructure is set up but a lot of effort has not gone into testing yet.
 
 ## How to Run
 - Either use docker-compose or start container(s) manually
