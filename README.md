@@ -1,6 +1,6 @@
-# Scheduler Service with REST endpoints [& eventually a Web Project or will create separate front-end service]
+# Scheduler Service with REST Endpoints [& eventually a Web Project or a separate front-end container]
 ## Assumptions
-- you have the knowledge to install Java, Maven, Docker Desktop, and an IDE like Eclipse
+- you can install & have some knowledge with JDK, Maven, Docker Desktop, and an IDE like Eclipse
 
 ## Dependencies
 - OpenJdk 11 OR Amazon Corretto 11 JDK
@@ -8,12 +8,17 @@
 - Docker desktop installed 
 
 ## Things to note
-- The project is a scheduler containerized service with the intent to support client and provider users to schedule appointments.
-- Providers will place available [time] slots, and clients will see and schedule appoinments.
-- As of 11/9/2020 this is far from complete and this is a learning exercise in spring boot, JPA, docker, docker-compose, and eventually React & kubernetes.
-- Right now the app start-up recreates all tables and drops all data - will adjust as progress on project...
+- The project is a scheduler containerized Spring Boot service with the intent to support client and provider users to schedule appointments.
+- Providers will place available [time] slots, and clients will see those available slots and schedule appointments.
+- As of 11/9/2020 this is far from complete and this is a learning exercise in Spring Boot, JPA, docker, docker-compose, and eventually React & kubernetes.
+- Right now the app start-up recreates all tables and drops all data - will adjust as make progress on project...
 - The scheduler spring boot app build is dependent on a mysql container to be up and running since the maven build creates the tables right now and run tests.
 - The test infrastructure is set up but a lot of effort has not gone into testing yet.
+
+## How to remove all previous docker containers and images (assuming you can do this in your local environment)
+- `docker stop $(docker ps -aq)`
+- `docker container prune`
+- `docker image prune -a`
 
 ## How to Run
 - Either use docker-compose or start container(s) manually
@@ -25,6 +30,25 @@
 - in terminal:  `docker pull mysql`
 
 ### You have several options on how to run and Test local rest End points
+#### Use docker-compose to start everything 
+<b>Build Scheduler App - TODO make this part of deploy</b>
+
+- get mysql: `docker pull mysql`
+- start test db: `docker run --name mysql -p  127.0.0.1:3306:3306 -e MYSQL_ROOT_PASSWORD="password" mysql &`
+- build app: `mvn install`
+
+<b>Remove all previous containers and images (assuming only working on this app)</b>
+
+- `docker stop $(docker ps -aq)`
+- `docker container prune`
+- `docker image prune -a`
+
+<b>Run docker-compose</b>
+
+- NOTE this takes several minutes because the app does not start until mysql health check succeeds.
+ `docker-compose up --build -d`
+- Test with swagger: [http://localhost:8080/schedapp/swagger-ui.html](http://localhost:8080/schedapp/swagger-ui.html)
+
 #### Run app as Java in Eclipse AFTER starting mysql container
 - remove any previous mysql and scheduler docker containers and images
 - `docker run --name mysql -p  127.0.0.1:3306:3306 -e MYSQL_ROOT_PASSWORD="password" mysql &`
@@ -41,7 +65,7 @@
 - remove any previous mysql and scheduler docker containers and images
 - `docker run --name mysql -p  127.0.0.1:3306:3306 -e MYSQL_ROOT_PASSWORD="password" mysql &`
 - cd to the project root--e.g., ~/workspace/scheduler
-- `mvnw install`
+- `mvn install`
 - Test run of application if you want: java -jar target\scheduler-0.0.1-SNAPSHOT.jar
 - `docker build  -t scheduler:v1 .`
 - `docker run -it -p8080:8080 scheduler:v1`
@@ -55,12 +79,6 @@
 - `docker run -it -p8080:8080 scheduler:0.0.1-SNAPSHOT`
 - Test with swagger: [http://localhost:8080/schedapp/swagger-ui.html](http://localhost:8080/schedapp/swagger-ui.html)
 
-### use docker-compose to start everything
-- assumes mvn install/build was performed TODO make this part of the deploy
-- NOTE this takes severl minutes because the app does not start until mysql health check succeeds.
-- remove any previous mysql and scheduler docker containers and images
-- `docker-compose up --build -d`
-- Test with swagger: [http://localhost:8080/schedapp/swagger-ui.html](http://localhost:8080/schedapp/swagger-ui.html)
 
 
 ### In Swagger
